@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: backend-deploy
+ labels:
+   app: backend-app
+ namespace: trainer-portal
+spec:
+ replicas: 2
+ selector:
+   matchLabels:
+     app: backend-app
+ template:
+   metadata:
+     name: backend-app
+     labels:
+       app: backend-app
+   spec:
+     containers:
+       - name: backend-app
+         image: accessmary/backend-trainer-portal:latest
+         ports:
+           - containerPort: 3000
+           
+         env:
+           - name: DB_SERVER
+             value: "devops2-maryam-server.database.windows.net"
+           - name: DB_USER
+             value: "maryam"
+           - name: DB_PASSWORD
+             value: "@cce$s$ql8520"
+           - name: DB_NAME
+             value: "devops2-maryam-db"
